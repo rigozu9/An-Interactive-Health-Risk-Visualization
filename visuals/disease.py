@@ -37,6 +37,22 @@ def filter_by_age_group(df, age_group="All"):
 
     return df[df["age_group"] == age_group]
 
+def filter_by_bmi_category(df, bmi_category="All"):
+    """Filter the dataframe by BMI category."""
+
+    if bmi_category == "All" or bmi_category is None:
+        return df
+
+    return df[df["bmi_category"] == bmi_category]
+
+def filter_by_activity_level(df, activity_level="All"):
+    """Filter the dataframe by activity level."""
+
+    if activity_level == "All" or activity_level is None:
+        return df
+
+    return df[df["activity_level"] == activity_level]
+
 def is_usable_value(value):
     """Check whether a standardized value should be included in the Sankey."""
 
@@ -98,18 +114,27 @@ def build_sankey_links(df):
 
     return first_layer_links
 
-def make_disease_sankey(df, age_group="All"):
+def make_disease_sankey(
+    df,
+    age_group="All",
+    bmi_category="All",
+    activity_level="All",
+):
     """
     Create a Sankey diagram showing disease risk-factor distributions.
 
     Filter:
     - age_group
+    - bmi_category
+    - activity_level
 
     Flow:
     - Risk Factor Category -> Disease Dataset
     """
 
     df = filter_by_age_group(df, age_group)
+    df = filter_by_bmi_category(df, bmi_category)
+    df = filter_by_activity_level(df, activity_level)
     links = build_sankey_links(df)
 
     labels = []

@@ -14,13 +14,36 @@ def filter_by_age_group(df, age_group="All"):
 
     return df[df["age_group"] == age_group]
 
-def make_smoking_lifestyle_bar_chart(df, age_group="All"):
+def filter_by_bmi_category(df, bmi_category="All"):
+    """Filter the dataframe by BMI category."""
+
+    if bmi_category == "All" or bmi_category is None:
+        return df
+
+    return df[df["bmi_category"] == bmi_category]
+
+def filter_by_activity_level(df, activity_level="All"):
+    """Filter the dataframe by activity level."""
+
+    if activity_level == "All" or activity_level is None:
+        return df
+
+    return df[df["activity_level"] == activity_level]
+
+def make_smoking_lifestyle_bar_chart(
+    df,
+    age_group="All",
+    bmi_category="All",
+    activity_level="All",
+):
     """
     Create a grouped bar chart comparing average consumption values
     between smokers and non-smokers.
 
     Filter:
     - age_group
+    - bmi_category
+    - activity_level
 
     Visual variable:
     - Smoking_History
@@ -32,6 +55,8 @@ def make_smoking_lifestyle_bar_chart(df, age_group="All"):
     """
 
     df = filter_by_age_group(df, age_group)
+    df = filter_by_bmi_category(df, bmi_category)
+    df = filter_by_activity_level(df, activity_level)
 
     consumption_columns = [
         ("Alcohol_Consumption", "Avg. Alcohol<br>Consumption", "Alcohol"),

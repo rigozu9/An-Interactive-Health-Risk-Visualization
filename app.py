@@ -20,6 +20,22 @@ age_group_options = [
         if age_group != "Unknown"
     ],
 ]
+bmi_category_options = [
+    {"label": "All", "value": "All"},
+    *[
+        {"label": bmi_category, "value": bmi_category}
+        for bmi_category in ["Normal", "Overweight", "Obese"]
+        if bmi_category in set(sleep_df["bmi_category"].dropna().unique())
+    ],
+]
+activity_level_options = [
+    {"label": "All", "value": "All"},
+    *[
+        {"label": activity_level, "value": activity_level}
+        for activity_level in ["Low", "Medium", "High"]
+        if activity_level in set(sleep_df["activity_level"].dropna().unique())
+    ],
+]
 
 APP_STYLE = {
     "height": "100vh",
@@ -107,6 +123,22 @@ app.layout = html.Div(
                             clearable=False,
                             style=FILTER_DROPDOWN_STYLE,
                         ),
+                        html.Label("BMI Category", style=FILTER_LABEL_STYLE),
+                        dcc.Dropdown(
+                            id="bmi-category-filter",
+                            options=bmi_category_options,
+                            value="All",
+                            clearable=False,
+                            style=FILTER_DROPDOWN_STYLE,
+                        ),
+                        html.Label("Activity Level", style=FILTER_LABEL_STYLE),
+                        dcc.Dropdown(
+                            id="activity-level-filter",
+                            options=activity_level_options,
+                            value="All",
+                            clearable=False,
+                            style=FILTER_DROPDOWN_STYLE,
+                        ),
                     ],
                 ),
             ],
@@ -157,11 +189,28 @@ app.layout = html.Div(
     Output("lifestyle-chart", "figure"),
     Output("disease-chart", "figure"),
     Input("age-group-filter", "value"),
+    Input("bmi-category-filter", "value"),
+    Input("activity-level-filter", "value"),
 )
-def update_dashboard(age_group):
-    sleep_fig = make_sleep_heatmap(sleep_df, age_group=age_group)
-    lifestyle_fig = make_smoking_lifestyle_bar_chart(lifestyle_df, age_group=age_group)
-    disease_fig = make_disease_sankey(disease_df, age_group=age_group)
+def update_dashboard(age_group, bmi_category, activity_level):
+    sleep_fig = make_sleep_heatmap(
+        sleep_df,
+        age_group=age_group,
+        bmi_category=bmi_category,
+        activity_level=activity_level,
+    )
+    lifestyle_fig = make_smoking_lifestyle_bar_chart(
+        lifestyle_df,
+        age_group=age_group,
+        bmi_category=bmi_category,
+        activity_level=activity_level,
+    )
+    disease_fig = make_disease_sankey(
+        disease_df,
+        age_group=age_group,
+        bmi_category=bmi_category,
+        activity_level=activity_level,
+    )
 
     return sleep_fig, lifestyle_fig, disease_fig
 
