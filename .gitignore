@@ -1,4 +1,17 @@
 venv/
-data/
 __pycache__/
 .DS_Store
+**/.DS_Store
+
+# Ignore raw data folders
+data/body/
+data/disease/
+data/sleep/
+
+# Keep standardized data
+!data/
+!data/standardized/
+!data/standardized/**
+
+# But still ignore macOS files inside standardized data
+data/standardized/**/.DS_Store
