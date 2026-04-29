@@ -8,6 +8,7 @@ from visuals.lifestyle import (
 from visuals.disease import load_disease_data, make_disease_sankey
 
 app = Dash(__name__)
+server = app.server
 
 sleep_df = load_sleep_data()
 lifestyle_df = load_lifestyle_data()
