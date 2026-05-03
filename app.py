@@ -5,7 +5,7 @@ from visuals.lifestyle import (
     load_lifestyle_data,
     make_smoking_lifestyle_bar_chart,
 )
-from visuals.disease import load_disease_data, make_disease_sankey
+from visuals.disease import DISEASE_FILES, load_disease_data, make_disease_profile
 
 app = Dash(__name__)
 server = app.server
@@ -36,6 +36,10 @@ activity_level_options = [
         for activity_level in ["Low", "Medium", "High"]
         if activity_level in set(sleep_df["activity_level"].dropna().unique())
     ],
+]
+disease_options = [
+    {"label": disease_name, "value": disease_name}
+    for disease_name in DISEASE_FILES
 ]
 
 APP_STYLE = {
@@ -101,6 +105,18 @@ CARD_TITLE_STYLE = {
     "color": "#253858",
 }
 
+CARD_HEADER_STYLE = {
+    "display": "flex",
+    "alignItems": "center",
+    "justifyContent": "spaceBetween",
+    "gap": "12px",
+    "marginBottom": "4px",
+}
+
+DISEASE_DROPDOWN_STYLE = {
+    "width": "220px",
+}
+
 GRAPH_STYLE = {
     "height": "100%",
     "minHeight": "0",
@@ -150,10 +166,22 @@ app.layout = html.Div(
                 html.Div(
                     style=CARD_STYLE,
                     children=[
-                        html.H2("Sleep", style=CARD_TITLE_STYLE),
+                        html.Div(
+                            style=CARD_HEADER_STYLE,
+                            children=[
+                                html.H2("Disease", style=CARD_TITLE_STYLE),
+                                dcc.Dropdown(
+                                    id="disease-selector",
+                                    options=disease_options,
+                                    value="Cancer Risk",
+                                    clearable=False,
+                                    style=DISEASE_DROPDOWN_STYLE,
+                                ),
+                            ],
+                        ),
                         dcc.Graph(
-                            id="sleep-chart",
-                            figure=make_sleep_heatmap(sleep_df),
+                            id="disease-chart",
+                            figure=make_disease_profile(disease_df),
                             style=GRAPH_STYLE,
                         ),
                     ],
@@ -174,10 +202,10 @@ app.layout = html.Div(
         html.Div(
             style=CARD_STYLE,
             children=[
-                html.H2("Disease", style=CARD_TITLE_STYLE),
+                html.H2("Sleep", style=CARD_TITLE_STYLE),
                 dcc.Graph(
-                    id="disease-chart",
-                    figure=make_disease_sankey(disease_df),
+                    id="sleep-chart",
+                    figure=make_sleep_heatmap(sleep_df),
                     style=GRAPH_STYLE,
                 ),
             ],
@@ -192,8 +220,9 @@ app.layout = html.Div(
     Input("age-group-filter", "value"),
     Input("bmi-category-filter", "value"),
     Input("activity-level-filter", "value"),
+    Input("disease-selector", "value"),
 )
-def update_dashboard(age_group, bmi_category, activity_level):
+def update_dashboard(age_group, bmi_category, activity_level, disease_dataset):
     sleep_fig = make_sleep_heatmap(
         sleep_df,
         age_group=age_group,
@@ -206,8 +235,9 @@ def update_dashboard(age_group, bmi_category, activity_level):
         bmi_category=bmi_category,
         activity_level=activity_level,
     )
-    disease_fig = make_disease_sankey(
+    disease_fig = make_disease_profile(
         disease_df,
+        disease_dataset=disease_dataset,
         age_group=age_group,
         bmi_category=bmi_category,
         activity_level=activity_level,
