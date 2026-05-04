@@ -434,7 +434,7 @@ def make_disease_profile(
 
     fig.update_layout(
         title=(
-            f"{disease_dataset} Risk Factor Profile"
+            f"{disease_dataset} Factor Profile"
             f"<br><sup>Among {total} disease-risk records after supported filters</sup>"
             f"{skipped_note}"
         ),
