@@ -43,9 +43,9 @@ disease_options = [
 ]
 
 APP_STYLE = {
-    "height": "100vh",
+    "minHeight": "100vh",
     "display": "grid",
-    "gridTemplateRows": "auto 1fr 1fr",
+    "gridTemplateRows": "auto auto auto",
     "gap": "12px",
     "padding": "16px",
     "boxSizing": "border-box",
@@ -61,15 +61,17 @@ HEADER_STYLE = {
 
 HEADER_ROW_STYLE = {
     "display": "flex",
-    "alignItems": "center",
+    "alignItems": "flexStart",
     "justifyContent": "spaceBetween",
     "gap": "16px",
+    "flexWrap": "wrap",
 }
 
 FILTER_BAR_STYLE = {
     "display": "flex",
     "alignItems": "center",
     "gap": "8px",
+    "flexWrap": "wrap",
 }
 
 FILTER_LABEL_STYLE = {
@@ -80,6 +82,7 @@ FILTER_LABEL_STYLE = {
 
 FILTER_DROPDOWN_STYLE = {
     "width": "180px",
+    "minWidth": "160px",
 }
 
 FILTER_NOTE_STYLE = {
@@ -90,7 +93,7 @@ FILTER_NOTE_STYLE = {
 
 GRID_ROW_STYLE = {
     "display": "grid",
-    "gridTemplateColumns": "1fr 1fr",
+    "gridTemplateColumns": "repeat(auto-fit, minmax(420px, 1fr))",
     "gap": "12px",
     "minHeight": "0",
 }
@@ -102,7 +105,7 @@ CARD_STYLE = {
     "padding": "10px",
     "display": "flex",
     "flexDirection": "column",
-    "minHeight": "0",
+    "minHeight": "320px",
 }
 
 CARD_TITLE_STYLE = {
@@ -128,11 +131,12 @@ CARD_HEADER_STYLE = {
 
 DISEASE_DROPDOWN_STYLE = {
     "width": "220px",
+    "minWidth": "180px",
 }
 
 GRAPH_STYLE = {
     "height": "100%",
-    "minHeight": "0",
+    "minHeight": "260px",
 }
 
 GRAPH_CONFIG = {

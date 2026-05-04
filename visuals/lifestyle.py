@@ -123,7 +123,7 @@ def make_smoking_lifestyle_bar_chart(
         bargap=0,
         showlegend=False,
         plot_bgcolor="white",
-        margin=dict(t=110),
+        margin=dict(t=110, b=80),
         xaxis=dict(
             tickmode="array",
             tickvals=x_positions,
@@ -139,17 +139,7 @@ def make_smoking_lifestyle_bar_chart(
                 x0=2.5,
                 x1=2.5,
                 y0=0,
-                y1=1.06,
-                xref="x",
-                yref="paper",
-                line=dict(color="#cccccc", width=1),
-            ),
-            dict(
-                type="line",
-                x0=-0.5,
-                x1=5.5,
-                y0=1.02,
-                y1=1.02,
+                y1=1.0,
                 xref="x",
                 yref="paper",
                 line=dict(color="#cccccc", width=1),
@@ -158,14 +148,14 @@ def make_smoking_lifestyle_bar_chart(
         annotations=[
             dict(
                 x=2.5,
-                y=1.55,
+                y=1.2,
                 xref="x",
                 yref="paper",
                 text="<b>Smoking History</b>",
                 showarrow=False,
             ),
-            dict(x=1, y=1.35, xref="x", yref="paper", text="No", showarrow=False),
-            dict(x=4, y=1.35, xref="x", yref="paper", text="Yes", showarrow=False),
+            dict(x=1, y=1.08, xref="x", yref="paper", text="No", showarrow=False),
+            dict(x=4, y=1.08, xref="x", yref="paper", text="Yes", showarrow=False),
         ],
     )
 
