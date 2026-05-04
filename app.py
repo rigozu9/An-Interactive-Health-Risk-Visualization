@@ -82,6 +82,12 @@ FILTER_DROPDOWN_STYLE = {
     "width": "180px",
 }
 
+FILTER_NOTE_STYLE = {
+    "margin": "4px 0 0 0",
+    "fontSize": "12px",
+    "color": "#6b7280",
+}
+
 GRID_ROW_STYLE = {
     "display": "grid",
     "gridTemplateColumns": "1fr 1fr",
@@ -143,31 +149,39 @@ app.layout = html.Div(
             children=[
                 html.H1("Health Lifestyle Dashboard", style=HEADER_STYLE),
                 html.Div(
-                    style=FILTER_BAR_STYLE,
                     children=[
-                        html.Label("Age Group", style=FILTER_LABEL_STYLE),
-                        dcc.Dropdown(
-                            id="age-group-filter",
-                            options=age_group_options,
-                            value="All",
-                            clearable=False,
-                            style=FILTER_DROPDOWN_STYLE,
+                        html.Div(
+                            style=FILTER_BAR_STYLE,
+                            children=[
+                                html.Label("Age Group", style=FILTER_LABEL_STYLE),
+                                dcc.Dropdown(
+                                    id="age-group-filter",
+                                    options=age_group_options,
+                                    value="All",
+                                    clearable=False,
+                                    style=FILTER_DROPDOWN_STYLE,
+                                ),
+                                html.Label("BMI Category", style=FILTER_LABEL_STYLE),
+                                dcc.Dropdown(
+                                    id="bmi-category-filter",
+                                    options=bmi_category_options,
+                                    value="All",
+                                    clearable=False,
+                                    style=FILTER_DROPDOWN_STYLE,
+                                ),
+                                html.Label("Activity Level", style=FILTER_LABEL_STYLE),
+                                dcc.Dropdown(
+                                    id="activity-level-filter",
+                                    options=activity_level_options,
+                                    value="All",
+                                    clearable=False,
+                                    style=FILTER_DROPDOWN_STYLE,
+                                ),
+                            ],
                         ),
-                        html.Label("BMI Category", style=FILTER_LABEL_STYLE),
-                        dcc.Dropdown(
-                            id="bmi-category-filter",
-                            options=bmi_category_options,
-                            value="All",
-                            clearable=False,
-                            style=FILTER_DROPDOWN_STYLE,
-                        ),
-                        html.Label("Activity Level", style=FILTER_LABEL_STYLE),
-                        dcc.Dropdown(
-                            id="activity-level-filter",
-                            options=activity_level_options,
-                            value="All",
-                            clearable=False,
-                            style=FILTER_DROPDOWN_STYLE,
+                        html.P(
+                            "Filters update charts when the selected dataset contains that variable.",
+                            style=FILTER_NOTE_STYLE,
                         ),
                     ],
                 ),
