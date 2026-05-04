@@ -105,6 +105,13 @@ CARD_TITLE_STYLE = {
     "color": "#253858",
 }
 
+CARD_DESCRIPTION_STYLE = {
+    "margin": "0 0 6px 0",
+    "fontSize": "13px",
+    "lineHeight": "1.35",
+    "color": "#4b5563",
+}
+
 CARD_HEADER_STYLE = {
     "display": "flex",
     "alignItems": "center",
@@ -120,6 +127,12 @@ DISEASE_DROPDOWN_STYLE = {
 GRAPH_STYLE = {
     "height": "100%",
     "minHeight": "0",
+}
+
+GRAPH_CONFIG = {
+    "displayModeBar": False,
+    "scrollZoom": False,
+    "responsive": True,
 }
 
 app.layout = html.Div(
@@ -179,10 +192,15 @@ app.layout = html.Div(
                                 ),
                             ],
                         ),
+                        html.P(
+                            "Choose a disease to see which available risk factors are common among disease-risk records.",
+                            style=CARD_DESCRIPTION_STYLE,
+                        ),
                         dcc.Graph(
                             id="disease-chart",
                             figure=make_disease_profile(disease_df),
                             style=GRAPH_STYLE,
+                            config=GRAPH_CONFIG,
                         ),
                     ],
                 ),
@@ -190,10 +208,15 @@ app.layout = html.Div(
                     style=CARD_STYLE,
                     children=[
                         html.H2("Lifestyle", style=CARD_TITLE_STYLE),
+                        html.P(
+                            "Compare average alcohol, fried potato, and green vegetable consumption between smoking groups.",
+                            style=CARD_DESCRIPTION_STYLE,
+                        ),
                         dcc.Graph(
                             id="lifestyle-chart",
                             figure=make_smoking_lifestyle_bar_chart(lifestyle_df),
                             style=GRAPH_STYLE,
+                            config=GRAPH_CONFIG,
                         ),
                     ],
                 ),
@@ -203,10 +226,15 @@ app.layout = html.Div(
             style=CARD_STYLE,
             children=[
                 html.H2("Sleep", style=CARD_TITLE_STYLE),
+                html.P(
+                    "Explore how stress level and sleep quality are distributed in the selected group.",
+                    style=CARD_DESCRIPTION_STYLE,
+                ),
                 dcc.Graph(
                     id="sleep-chart",
                     figure=make_sleep_heatmap(sleep_df),
                     style=GRAPH_STYLE,
+                    config=GRAPH_CONFIG,
                 ),
             ],
         ),
