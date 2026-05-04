@@ -59,11 +59,11 @@ def make_smoking_lifestyle_bar_chart(
     df = filter_by_activity_level(df, activity_level)
 
     consumption_columns = [
-        ("Alcohol_Consumption", "Avg. Alcohol<br>Consumption", "Alcohol"),
-        ("FriedPotato_Consumption", "Avg. FriedPotato<br>Consumption", "Fried Potatoes"),
+        ("Alcohol_Consumption", "Alcohol", "Alcohol"),
+        ("FriedPotato_Consumption", "Fried<br>potatoes", "Fried Potatoes"),
         (
             "Green_Vegetables_Consumption",
-            "Avg. Green<br>Vegetables",
+            "Green<br>vegetables",
             "Green Vegetables",
         ),
     ]
@@ -158,14 +158,14 @@ def make_smoking_lifestyle_bar_chart(
         annotations=[
             dict(
                 x=2.5,
-                y=1.1,
+                y=1.55,
                 xref="x",
                 yref="paper",
                 text="<b>Smoking History</b>",
                 showarrow=False,
             ),
-            dict(x=1, y=1.045, xref="x", yref="paper", text="No", showarrow=False),
-            dict(x=4, y=1.045, xref="x", yref="paper", text="Yes", showarrow=False),
+            dict(x=1, y=1.35, xref="x", yref="paper", text="No", showarrow=False),
+            dict(x=4, y=1.35, xref="x", yref="paper", text="Yes", showarrow=False),
         ],
     )
 
