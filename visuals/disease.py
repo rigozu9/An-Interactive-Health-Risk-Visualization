@@ -410,7 +410,11 @@ def make_disease_profile(
                 cmin=0,
                 cmax=100,
                 line=dict(color="white", width=2),
-                colorbar=dict(title="Share"),
+                colorbar=dict(
+                title="Share",
+                thickness=20,
+                len=1.3,
+            )
             ),
             text=text,
             textfont=dict(size=18, color="#111827"),
