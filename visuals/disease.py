@@ -32,7 +32,7 @@ DISEASE_FACTOR_CONFIG = {
             "description": "standardized alcohol score in the high range",
         },
         {
-            "label": "BMI above normal",
+            "label": "Above-normal BMI",
             "column": "bmi_category",
             "matches": {"Overweight", "Obese"},
             "description": "BMI category is overweight or obese",
@@ -64,13 +64,13 @@ DISEASE_FACTOR_CONFIG = {
             "description": "cholesterol is in the high category",
         },
         {
-            "label": "High glucose",
+            "label": "High blood sugar",
             "column": "glucose_category",
             "matches": {"High"},
             "description": "fasting blood sugar flag is high",
         },
         {
-            "label": "Exercise angina",
+            "label": "Exercise chest pain",
             "column": "ExerciseAngina",
             "matches": {"Y"},
             "description": "exercise-induced angina is marked yes",
@@ -84,7 +84,7 @@ DISEASE_FACTOR_CONFIG = {
     ],
     "Stroke": [
         {
-            "label": "High glucose",
+            "label": "High blood sugar",
             "column": "glucose_category",
             "matches": {"Prediabetic/Elevated", "High"},
             "description": "average glucose is elevated or high",
@@ -96,7 +96,7 @@ DISEASE_FACTOR_CONFIG = {
             "description": "hypertension flag is marked yes",
         },
         {
-            "label": "BMI above normal",
+            "label": "Above-normal BMI",
             "column": "bmi_category",
             "matches": {"Overweight", "Obese"},
             "description": "BMI category is overweight or obese",
