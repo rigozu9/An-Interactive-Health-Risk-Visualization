@@ -144,7 +144,7 @@ def make_sleep_heatmap(
     )
 
     fig.update_layout(
-        title=f"Sleep Quality by Stress Level ({age_group})",
+        title="Sleep Quality by Stress Level",
         xaxis=dict(
             title="Stress Level",
             categoryorder="array",

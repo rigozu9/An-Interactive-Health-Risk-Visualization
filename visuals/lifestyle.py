@@ -129,7 +129,7 @@ def make_smoking_lifestyle_bar_chart(
     )
 
     fig.update_layout(
-        title=f"Lifestyle ({age_group})",
+        title="Lifestyle Comparison",
         yaxis_title="Average Consumption",
         bargap=0,
         showlegend=False,
