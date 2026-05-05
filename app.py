@@ -200,7 +200,7 @@ app.layout = html.Div(
                             ],
                         ),
                         html.P(
-                            "Filters update charts when the selected dataset contains that variable.",
+                            "Filters define the selected subgroup. Some disease datasets may ignore filters they do not contain.",
                             style=FILTER_NOTE_STYLE,
                         ),
                     ],
