@@ -76,10 +76,10 @@ DISEASE_FACTOR_CONFIG = {
             "description": "exercise-induced angina is marked yes",
         },
         {
-            "label": "Flat/down ST slope",
+            "label": "Abnormal heart test result",
             "column": "ST_Slope",
             "matches": {"Flat", "Down"},
-            "description": "ST slope is flat or down",
+            "description": "Exercise heart test pattern is flat or down",
         },
     ],
     "Stroke": [
@@ -375,6 +375,7 @@ def make_disease_profile(
 
     factor_config = DISEASE_FACTOR_CONFIG[disease_dataset]
     stats, total = calculate_factor_stats(df, factor_config)
+    stats = sorted(stats, key=lambda stat: stat["percentage"], reverse=True)
 
     if total == 0 or not stats:
         return make_empty_disease_profile(
