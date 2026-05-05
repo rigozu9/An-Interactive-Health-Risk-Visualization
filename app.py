@@ -1,4 +1,5 @@
 from dash import Dash, Input, Output, dcc, html
+from dash.exceptions import PreventUpdate
 
 from visuals.sleep import load_sleep_data, make_sleep_heatmap
 from visuals.lifestyle import (
@@ -91,6 +92,18 @@ FILTER_LABEL_STYLE = {
 FILTER_DROPDOWN_STYLE = {
     "width": "180px",
     "minWidth": "160px",
+}
+
+FILTER_BUTTON_STYLE = {
+    "height": "46px",
+    "padding": "0 14px",
+    "border": "1px solid #93a1c1",
+    "borderRadius": "4px",
+    "backgroundColor": "white",
+    "color": "#253858",
+    "fontSize": "14px",
+    "fontWeight": "600",
+    "cursor": "pointer",
 }
 
 FILTER_NOTE_STYLE = {
@@ -196,6 +209,12 @@ app.layout = html.Div(
                                     value="All",
                                     clearable=False,
                                     style=FILTER_DROPDOWN_STYLE,
+                                ),
+                                html.Button(
+                                    "Clear filters",
+                                    id="clear-filters-button",
+                                    n_clicks=0,
+                                    style=FILTER_BUTTON_STYLE,
                                 ),
                             ],
                         ),
@@ -310,6 +329,20 @@ def update_dashboard(age_group, gender, bmi_category, activity_level, disease_da
     )
 
     return sleep_fig, lifestyle_fig, disease_fig
+
+
+@app.callback(
+    Output("age-group-filter", "value"),
+    Output("gender-filter", "value"),
+    Output("bmi-category-filter", "value"),
+    Output("activity-level-filter", "value"),
+    Input("clear-filters-button", "n_clicks"),
+)
+def clear_filters(n_clicks):
+    if not n_clicks:
+        raise PreventUpdate
+
+    return "All", "All", "All", "All"
 
 
 if __name__ == "__main__":
