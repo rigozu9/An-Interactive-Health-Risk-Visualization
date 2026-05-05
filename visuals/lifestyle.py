@@ -68,6 +68,7 @@ def make_smoking_lifestyle_bar_chart(
     df = filter_by_gender(df, gender)
     df = filter_by_bmi_category(df, bmi_category)
     df = filter_by_activity_level(df, activity_level)
+    record_count = len(df)
 
     consumption_columns = [
         ("Alcohol_Consumption", "Alcohol", "Alcohol"),
@@ -129,7 +130,7 @@ def make_smoking_lifestyle_bar_chart(
     )
 
     fig.update_layout(
-        title="Lifestyle Comparison",
+        title=f"Lifestyle Comparison<br><sup>Based on {record_count} records after filters</sup>",
         yaxis_title="Average Consumption",
         bargap=0,
         showlegend=False,
