@@ -21,6 +21,14 @@ age_group_options = [
         if age_group != "Unknown"
     ],
 ]
+gender_options = [
+    {"label": "All", "value": "All"},
+    *[
+        {"label": gender, "value": gender}
+        for gender in ["Female", "Male"]
+        if gender in set(sleep_df["gender"].dropna().unique())
+    ],
+]
 bmi_category_options = [
     {"label": "All", "value": "All"},
     *[
@@ -165,6 +173,14 @@ app.layout = html.Div(
                                     clearable=False,
                                     style=FILTER_DROPDOWN_STYLE,
                                 ),
+                                html.Label("Gender", style=FILTER_LABEL_STYLE),
+                                dcc.Dropdown(
+                                    id="gender-filter",
+                                    options=gender_options,
+                                    value="All",
+                                    clearable=False,
+                                    style=FILTER_DROPDOWN_STYLE,
+                                ),
                                 html.Label("BMI Category", style=FILTER_LABEL_STYLE),
                                 dcc.Dropdown(
                                     id="bmi-category-filter",
@@ -264,20 +280,23 @@ app.layout = html.Div(
     Output("lifestyle-chart", "figure"),
     Output("disease-chart", "figure"),
     Input("age-group-filter", "value"),
+    Input("gender-filter", "value"),
     Input("bmi-category-filter", "value"),
     Input("activity-level-filter", "value"),
     Input("disease-selector", "value"),
 )
-def update_dashboard(age_group, bmi_category, activity_level, disease_dataset):
+def update_dashboard(age_group, gender, bmi_category, activity_level, disease_dataset):
     sleep_fig = make_sleep_heatmap(
         sleep_df,
         age_group=age_group,
+        gender=gender,
         bmi_category=bmi_category,
         activity_level=activity_level,
     )
     lifestyle_fig = make_smoking_lifestyle_bar_chart(
         lifestyle_df,
         age_group=age_group,
+        gender=gender,
         bmi_category=bmi_category,
         activity_level=activity_level,
     )
@@ -285,6 +304,7 @@ def update_dashboard(age_group, bmi_category, activity_level, disease_dataset):
         disease_df,
         disease_dataset=disease_dataset,
         age_group=age_group,
+        gender=gender,
         bmi_category=bmi_category,
         activity_level=activity_level,
     )

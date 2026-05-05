@@ -14,6 +14,14 @@ def filter_by_age_group(df, age_group="All"):
 
     return df[df["age_group"] == age_group]
 
+def filter_by_gender(df, gender="All"):
+    """Filter the dataframe by gender."""
+
+    if gender == "All" or gender is None:
+        return df
+
+    return df[df["gender"] == gender]
+
 def filter_by_bmi_category(df, bmi_category="All"):
     """Filter the dataframe by BMI category."""
 
@@ -33,6 +41,7 @@ def filter_by_activity_level(df, activity_level="All"):
 def make_smoking_lifestyle_bar_chart(
     df,
     age_group="All",
+    gender="All",
     bmi_category="All",
     activity_level="All",
 ):
@@ -42,6 +51,7 @@ def make_smoking_lifestyle_bar_chart(
 
     Filter:
     - age_group
+    - gender
     - bmi_category
     - activity_level
 
@@ -55,6 +65,7 @@ def make_smoking_lifestyle_bar_chart(
     """
 
     df = filter_by_age_group(df, age_group)
+    df = filter_by_gender(df, gender)
     df = filter_by_bmi_category(df, bmi_category)
     df = filter_by_activity_level(df, activity_level)
 

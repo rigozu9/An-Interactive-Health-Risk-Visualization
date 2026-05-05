@@ -136,6 +136,14 @@ def filter_by_age_group(df, age_group="All"):
 
     return df[df["age_group"] == age_group]
 
+def filter_by_gender(df, gender="All"):
+    """Filter the dataframe by gender."""
+
+    if gender == "All" or gender is None:
+        return df
+
+    return df[df["gender"] == gender]
+
 def filter_by_bmi_category(df, bmi_category="All"):
     """Filter the dataframe by BMI category."""
 
@@ -152,13 +160,25 @@ def filter_by_activity_level(df, activity_level="All"):
 
     return df[df["activity_level"] == activity_level]
 
-def apply_supported_filters(df, age_group="All", bmi_category="All", activity_level="All"):
+def apply_supported_filters(
+    df,
+    age_group="All",
+    gender="All",
+    bmi_category="All",
+    activity_level="All",
+):
     """Apply global filters only when the selected disease dataset supports them."""
 
     skipped_filters = []
 
     if age_group != "All" and age_group is not None:
         df = filter_by_age_group(df, age_group)
+
+    if gender != "All" and gender is not None:
+        if "gender" in df and gender in set(df["gender"].dropna()):
+            df = filter_by_gender(df, gender)
+        else:
+            skipped_filters.append("gender")
 
     if bmi_category != "All" and bmi_category is not None:
         if "bmi_category" in df and bmi_category in set(df["bmi_category"].dropna()):
@@ -355,6 +375,7 @@ def make_disease_profile(
     df,
     disease_dataset="Cancer Risk",
     age_group="All",
+    gender="All",
     bmi_category="All",
     activity_level="All",
 ):
@@ -369,6 +390,7 @@ def make_disease_profile(
     df, skipped_filters = apply_supported_filters(
         df,
         age_group=age_group,
+        gender=gender,
         bmi_category=bmi_category,
         activity_level=activity_level,
     )
